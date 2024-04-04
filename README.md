@@ -4,15 +4,15 @@
 </p>
 
 <!-- About Section -->
- # About me
+ # About Us
  
 <p>
  <img align="right" width="350" src="/assets/programmer.gif" alt="Coding gif" />
   
- ✌️ &emsp; Enjoy to do programming and sharing knowledge <br/><br/>
- ❤️ &emsp; Love to writing code and learning new features<br/><br/>
- 📧 &emsp; Reach me anytime: alsiam.dev@gmail.com<br/><br/>
- 💬 &emsp; Ask me about anything [here](https://github.com/alsiam/alsiam/issues)
+ ✌️ &emsp; MBC아카데미에서 만났습니다 <br/><br/>
+ ❤️ &emsp; 컴퓨터를 사랑하는 5인입니다<br/><br/>
+ 📧 &emsp; 언제든 연락주세요: stormeight@naver.com<br/><br/>
+ 💬 &emsp; 무엇이든 물어보세요 [here](https://github.com/mi-ci/project-HB/issues)
 
 </p>
 
