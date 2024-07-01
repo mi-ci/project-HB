@@ -1,20 +1,33 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, request, Response
+import os
 
-app = Flask(__name__) 
+app = Flask(__name__)
 
-@app.route("/") # / ← 슬래시는 메인페이지 
-def main():     
-    return render_template('메인페이지.html') 
+# Directory to save uploaded images
+UPLOAD_FOLDER = 'uploads'
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
 
-@app.route("/", methods=["POST"])
-def predict_img():
+# Route to accept image uploads
+@app.route('/upload', methods=['POST'])
+def upload_image():
+    if 'frame' not in request.files:
+        return "No file part", 400
+    file = request.files['frame']
+    if file.filename == '':
+        return "No selected file", 400
+    file.save(os.path.join(UPLOAD_FOLDER, 'frame.jpg'))
+    return "File uploaded successfully", 200
 
-    # 파이썬 코드 작성 가능!
+# Route to stream the latest image
+@app.route('/stream')
+def stream_image():
+    def generate():
+        with open(os.path.join(UPLOAD_FOLDER, 'frame.jpg'), 'rb') as f:
+            frame = f.read()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+    return Response(generate(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-    return "작업을 모두 수행했습니다!"
-
-@app.route("/naver") # localhost:5002/naver
-def redirect_ex(): 
-    return redirect("https://www.naver.com")
-
-app.run(host="0.0.0.0", port=5002) # localhost:5002 로 접속 가능
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5001)
